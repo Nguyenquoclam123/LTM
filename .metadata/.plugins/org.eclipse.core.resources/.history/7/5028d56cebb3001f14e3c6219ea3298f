@@ -1,0 +1,32 @@
+package Model.DAO;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+import Model.BEAN.Status;
+
+public class StatusDAO {
+	public boolean createNewStatus(Status status) {
+		try {
+	        String url = "jdbc:mysql://localhost:3306/dulieu"; 
+	        String user = "root";  
+	        String password = ""; 
+	        Class.forName("com.mysql.jdbc.Driver");
+	        Connection conn = DriverManager.getConnection(url, user, password);
+	        Statement stmt = conn.createStatement();
+	        String query = "Insert into status(id) values('"+status.getName()+"')";
+	        int result = stmt.executeUpdate(query);
+            if (result > 0) {
+                return true;
+            }
+	    } catch (ClassNotFoundException e) {
+	        System.out.println("Không tìm thấy MySQL JDBC Driver: " + e.getMessage());
+	    } catch (SQLException e) {
+	        System.out.println("Lỗi: " + e.getMessage());
+	    }
+		return false;
+	}
+
+}

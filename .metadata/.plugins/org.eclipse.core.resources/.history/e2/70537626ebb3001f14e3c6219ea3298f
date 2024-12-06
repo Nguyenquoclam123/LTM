@@ -1,0 +1,10 @@
+package Model.DAO;
+
+import Model.BEAN.Status;
+
+public class StatusDAO {
+	public boolean createNewStatus(Status status) {
+		
+		return true;
+	}
+}

@@ -1,0 +1,7 @@
+package Model.DAO;
+
+public class RoleDAO {
+	public boolean createNewStatus{
+		return true;
+	}
+}

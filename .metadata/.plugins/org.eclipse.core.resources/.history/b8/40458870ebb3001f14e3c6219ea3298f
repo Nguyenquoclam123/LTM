@@ -1,0 +1,67 @@
+package Model.DAO;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+
+import Model.BEAN.Status;
+
+public class StatusDAO {
+	public boolean createNewStatus(Status status) {
+		try {
+	        String url = "jdbc:mysql://localhost:3306/dulieu"; 
+	        String user = "root";  
+	        String password = ""; 
+	        Class.forName("com.mysql.jdbc.Driver");
+	        Connection conn = DriverManager.getConnection(url, user, password);
+	        Statement stmt = conn.createStatement();
+	        String query = "Insert into status(id) values('"+status.getName()+"')";
+	        int result = stmt.executeUpdate(query);
+            if (result > 0) {
+                return true;
+            }
+	    } catch (ClassNotFoundException e) {
+	        System.out.println("Không tìm thấy MySQL JDBC Driver: " + e.getMessage());
+	    } catch (SQLException e) {
+	        System.out.println("Lỗi: " + e.getMessage());
+	    }
+		return false;
+	}
+	
+	public List<Status> getAllStatus(){
+		List<Status> list = new ArrayList<Status>();
+		try {
+	        String url = "jdbc:mysql://localhost:3306/dulieu"; 
+	        String user = "root";  
+	        String password = ""; 
+	        Class.forName("com.mysql.jdbc.Driver");
+	
+	        Connection conn = DriverManager.getConnection(url, user, password);
+	
+	        Statement stmt = conn.createStatement();
+	
+	        String query = "SELECT * FROM nhanvien";
+	        ResultSet rs = stmt.executeQuery(query);
+	
+	        while (rs.next()) {
+	            Status status = new Status();
+	            status.setId(rs.getLong("id"));
+	            status.setName(rs.getString("name"));
+	        }
+			
+	        rs.close();
+	        conn.close();
+	    } catch (ClassNotFoundException e) {
+	        System.out.println("KhÃ´ng tÃ¬m tháº¥y MySQL JDBC Driver: " + e.getMessage());
+	    } catch (SQLException e) {
+	        System.out.println("Káº¿t ná»‘i tháº¥t báº¡i: " + e.getMessage());
+	    }
+		return list;
+
+	}
+
+}

@@ -34,13 +34,13 @@ public class StatusDAO {
 			return false;
 		}
 		try {
-	        String url = "jdbc:mysql://localhost:3306/dulieu"; 
+	        String url = "jdbc:mysql://localhost:3306/cuoikiltm"; 
 	        String user = "root";  
 	        String password = ""; 
 	        Class.forName("com.mysql.jdbc.Driver");
 	        Connection conn = DriverManager.getConnection(url, user, password);
 	        Statement stmt = conn.createStatement();
-	        String query = "Insert into status(id) values('"+status.getName()+"')";
+	        String query = "Insert into status(name) values('"+status.getName()+"')";
 	        int result = stmt.executeUpdate(query);
             if (result > 0) {
                 return true;
@@ -56,7 +56,7 @@ public class StatusDAO {
 	public List<Status> getAllStatus(){
 		List<Status> list = new ArrayList<Status>();
 		try {
-	        String url = "jdbc:mysql://localhost:3306/dulieu"; 
+	        String url = "jdbc:mysql://localhost:3306/cuoikiltm"; 
 	        String user = "root";  
 	        String password = ""; 
 	        Class.forName("com.mysql.jdbc.Driver");
@@ -88,7 +88,7 @@ public class StatusDAO {
 	public Status getStatusById(long id){
 		Status status = new Status();
 		try {
-	        String url = "jdbc:mysql://localhost:3306/dulieu"; 
+	        String url = "jdbc:mysql://localhost:3306/cuoikiltm"; 
 	        String user = "root";  
 	        String password = ""; 
 	        Class.forName("com.mysql.jdbc.Driver");
@@ -117,7 +117,7 @@ public class StatusDAO {
 	
 	public boolean deleteStatus(long id) {
 		String query = "DELETE FROM status WHERE id = ?";
-	    try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/dulieu", "root", "");
+	    try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/cuoikiltm", "root", "");
 	         PreparedStatement pstmt = conn.prepareStatement(query)) {
 
 	        pstmt.setLong(1, id);
@@ -132,7 +132,7 @@ public class StatusDAO {
 	
 	public boolean updateStatus(Status status) {
 		String query = "UPDATE status SET name=? WHERE id = ?";
-		try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/dulieu", "root", "");
+		try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/cuoikiltm", "root", "");
 		     PreparedStatement pstmt = conn.prepareStatement(query)) {
 		    pstmt.setString(1, status.getName());
 		    pstmt.setLong(2, status.getId());

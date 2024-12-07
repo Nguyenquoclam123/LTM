@@ -6,34 +6,39 @@ import Model.BEAN.Booking;
 import Model.DAO.BookingDAO;
 
 public class BookingBO {
-    private BookingDAO dao = new BookingDAO();
+    private static BookingDAO dao = new BookingDAO(); // Sử dụng biến static cho DAO
 
-    public boolean create(Booking booking) {
-        return this.dao.createNewBooking(booking);
+    // Tạo mới một booking
+    public static boolean create(Booking booking) {
+        return dao.createNewBooking(booking);
     }
 
-    public boolean delete(long id) {
-        if (!this.dao.checkExist(id)) {
+    // Xóa một booking dựa trên ID
+    public static boolean delete(long id) {
+        if (!dao.checkExist(id)) {
             return false;
         }
-        return this.dao.deleteBooking(id);
+        return dao.deleteBooking(id);
     }
 
-    public boolean update(Booking booking) {
-        if (!this.dao.checkExist(booking.getId())) {
+    // Cập nhật thông tin một booking
+    public static boolean update(Booking booking) {
+        if (!dao.checkExist(booking.getId())) {
             return false;
         }
-        return this.dao.updateBooking(booking);
+        return dao.updateBooking(booking);
     }
 
-    public List<Booking> getAllBookings() {
-        return this.dao.getAllBookings();
+    // Lấy danh sách tất cả booking
+    public static List<Booking> getAllBookings() {
+        return dao.getAllBookings();
     }
 
-    public Booking getBookingById(long id) {
-        if (!this.dao.checkExist(id)) {
+    // Lấy thông tin một booking dựa trên ID
+    public static Booking getBookingById(long id) {
+        if (!dao.checkExist(id)) {
             return null;
         }
-        return this.dao.getBookingById(id);
+        return dao.getBookingById(id);
     }
 }

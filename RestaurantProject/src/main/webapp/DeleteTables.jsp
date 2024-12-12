@@ -76,7 +76,7 @@
         </thead>
         <tbody>
         <% 
-            ArrayList<Tables> danhSachBan = (ArrayList<Tables>) request.getAttribute("listTables");
+            ArrayList<Tables> danhSachBan = (ArrayList<Tables>) request.getAttribute("tablesList");
             if (danhSachBan == null || danhSachBan.isEmpty()) { %>
                 <tr>
                     <td colspan="4" style="text-align: center;">Danh sách bàn hiện tại trống</td>
@@ -86,11 +86,11 @@
                     <tr>
                         <td><%= table.getId() %></td>
                         <td><%= table.getNumber() %></td>
-                        <td><%= table.getStatus_id() %></td>
+                        <td><%= table.getStatus_id()== 1 ? "Còn Trống" : "Đã hết" %></td>
                         <td>
-                            <form action="TableController?action=delete" method="post" style="display: inline;">
+                            <form action="TablesController?action=delete" method="post" style="display: inline;">
                                 <!-- Gửi ID bàn qua request -->
-                                <input type="hidden" name="ID" value="<%= table.getId() %>">
+                                <input type="hidden" name="id" value="<%= table.getId() %>">
                                 <button type="submit" name="action" value="Delete">Xóa</button>
                             </form>
                         </td>
@@ -99,6 +99,6 @@
             } %>
         </tbody>
     </table>
-    <a href="QLBan/Index.jsp">Quay về Trang Chủ</a>
+    <a href="Index_Tables.jsp">Quay về Trang Chủ</a>
 </body>
 </html>

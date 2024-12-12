@@ -3,6 +3,7 @@ package Model.BO;
 import java.util.List;
 
 import Model.BEAN.Booking;
+import Model.BEAN.Tables;
 import Model.DAO.BookingDAO;
 
 public class BookingBO {
@@ -10,7 +11,7 @@ public class BookingBO {
 
     // Tạo mới một booking
     public static boolean create(Booking booking) {
-        return dao.createNewBooking(booking);
+        return dao.addBooking(booking);
     }
 
     // Xóa một booking dựa trên ID
@@ -40,5 +41,10 @@ public class BookingBO {
             return null;
         }
         return dao.getBookingById(id);
+    }
+    
+    // Tìm kiếm tables dựa vào cột và chuỗi tìm kiếm
+    public static List<Booking> searchByCol(String searchBy, String searchString) {
+        return dao.searchByCol(searchBy, searchString); // Call the method on the instance of NV_DAO
     }
 }

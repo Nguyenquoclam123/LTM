@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.List"%>
 <%@page import="Model.BEAN.Booking"%>
 <!DOCTYPE html>
 <html>
@@ -71,14 +71,30 @@
             <label for="user_id">User ID:</label>
             <input type="text" id="user_id" name="user_id">
 
-            <label for="table_id">Table ID:</label>
-            <input type="text" id="table_id" name="table_id">
-
+            <label for="table_id">ID Bàn:</label>
+			<select id="table_id" name="table_id" required>
+			    <option value="">Chọn ID bàn</option>
+			    <%
+			    List<Long> tableIds = (List<Long>) request.getAttribute("tablesList");
+			        if (tableIds != null) {
+			            for (long tableId : tableIds) {
+			    %>
+			    <option value="<%= tableId %>"><%= tableId %></option>
+			    <%
+			            }
+			        }
+			    %>
+			</select>
             <label for="date">Date:</label>
             <input type="text" id="date" name="date">
 
-            <label for="status_id">Status ID:</label>
-            <input type="text" id="status_id" name="status_id">
+            <label for="status_id">Status:</label>
+			<select id="status_id" name="status_id">
+			    <option value="5">Waiting</option>
+			    <option value="6">Confirm</option>
+			    <option value="7">Canceled</option>
+			</select>
+
 
             <button type="submit">Update</button>
         </form>
@@ -97,7 +113,7 @@
         </thead>
         <tbody>
             <%
-                ArrayList<Booking> bookings = (ArrayList<Booking>) request.getAttribute("listBookings");
+                List<Booking> bookings = (List<Booking>) request.getAttribute("bookingsList");
                 if (bookings != null) {
                     for (Booking booking : bookings) {
             %>
@@ -106,7 +122,20 @@
                 <td><%= booking.getUser_id() %></td>
                 <td><%= booking.getTable_id() %></td>
                 <td><%= booking.getDate() %></td>
-                <td><%= booking.getStatus_id() %></td>
+                <td>
+				    <% 
+				        long statusId = booking.getStatus_id();
+				        String status = "";
+				        if (statusId == 5) {
+				            status = "Waiting";
+				        } else if (statusId == 6) {
+				            status = "Confirm";
+				        } else if (statusId == 7) {
+				            status = "Canceled";
+				        }
+				    %>
+				    <%= status %>
+				</td>
                 <td>
                     <button onclick="fillForm('<%= booking.getId() %>', '<%= booking.getUser_id() %>', '<%= booking.getTable_id() %>', '<%= booking.getDate() %>', '<%= booking.getStatus_id() %>')">Edit</button>
                 </td>

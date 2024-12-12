@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="java.util.ArrayList" %>
+<%@ page import="java.util.List" %>
 <%@ page import="Model.BEAN.Tables" %>
 <!DOCTYPE html>
 <html lang="vi">
@@ -73,14 +73,14 @@
         </thead>
         <tbody>
         <%
-            ArrayList<Tables> list = (ArrayList<Tables>) request.getAttribute("tablesList");
+            List<Tables> list = (List<Tables>) request.getAttribute("tablesList");
             if (list != null) {
                 for (Tables table : list) {
         %>
             <tr>
                 <td><%= table.getId() %></td>
                 <td><%= table.getNumber() %></td>
-                <td><%= table.getStatus_id() == 1 ? "Available" : "Occupied" %></td>
+                <td><%= table.getStatus_id() == 1 ? "Còn Trống" : "Đã hết" %></td>
             </tr>
         <%
                 }
@@ -94,6 +94,6 @@
         %>
         </tbody>
     </table>
-    <a href="Index.jsp">Quay lại trang chủ</a>
+    <a href="Index_Tables.jsp">Quay lại trang chủ</a>
 </body>
 </html>

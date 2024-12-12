@@ -76,7 +76,7 @@
         </thead>
         <tbody>
         <%
-            ArrayList<Booking> bookings = (ArrayList<Booking>) request.getAttribute("BookingList");
+            ArrayList<Booking> bookings = (ArrayList<Booking>) request.getAttribute("bookingsList");
             if (bookings != null && !bookings.isEmpty()) {
                 for (Booking booking : bookings) {
         %>
@@ -85,7 +85,21 @@
                 <td><%= booking.getUser_id() %></td>
                 <td><%= booking.getTable_id() %></td>
                 <td><%= booking.getDate() %></td>
-                <td><%= booking.getStatus_id() %></td>
+                <td>
+				    <% 
+				        long statusId = booking.getStatus_id();
+				        String status = "";
+				        if (statusId == 5) {
+				            status = "Waiting";
+				        } else if (statusId == 6) {
+				            status = "Confirm";
+				        } else if (statusId == 7) {
+				            status = "Canceled";
+				        }
+				    %>
+				    <%= status %>
+				</td>
+
             </tr>
         <%
                 }
@@ -99,6 +113,6 @@
         %>
         </tbody>
     </table>
-    <a href="Booking/Index.jsp">Quay lại trang chủ</a>
+    <a href="Index_booking.jsp">Quay lại trang chủ</a>
 </body>
 </html>

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="java.util.ArrayList"%>
+<%@ page import="java.util.List"%>
+
 <%@ page import="Model.BEAN.Booking"%>
 <!DOCTYPE html>
 <html lang="vi">
@@ -61,17 +62,34 @@
     <h1>Thêm Đặt Bàn</h1>
     <div class="form-container">
         <form action="BookingController?action=create" method="post" onsubmit="return validateForm()">
-            <label for="UserID">ID Người Dùng:</label>
-            <input type="text" id="UserID" name="UserID" required placeholder="Nhập ID người dùng">
+            <label for="user_id">ID Người Dùng:</label>
+            <input type="text" id="user_id" name="user_id" required placeholder="Nhập ID người dùng">
 
-            <label for="TableID">ID Bàn:</label>
-            <input type="text" id="TableID" name="TableID" required placeholder="Nhập ID bàn">
+            <label for="table_id">ID Bàn:</label>
+			<select id="table_id" name="table_id" required>
+			    <option value="">Chọn ID bàn</option>
+			    <%
+			    List<Long> tableIds = (List<Long>) request.getAttribute("tablesList");
+			        if (tableIds != null) {
+			            for (long tableId : tableIds) {
+			    %>
+			    <option value="<%= tableId %>"><%= tableId %></option>
+			    <%
+			            }
+			        }
+			    %>
+			</select>
 
-            <label for="Date">Ngày Đặt:</label>
-            <input type="date" id="Date" name="Date" required>
 
-            <label for="StatusID">Trạng Thái:</label>
-            <input type="text" id="StatusID" name="StatusID" required placeholder="Nhập trạng thái">
+            <label for="date">Ngày Đặt:</label>
+            <input type="date" id="date" name="date" required>
+
+            <label for="status_id">Status:</label>
+			<select id="status_id" name="status_id">
+			    <option value="5">Waiting</option>
+			    <option value="6">Confirm</option>
+			    <option value="7">Canceled</option>
+			</select>
 
             <input type="submit" value="Thêm">
             <input type="reset" value="Reset">
@@ -81,10 +99,10 @@
     <script>
         // Kiểm tra dữ liệu nhập vào
         function validateForm() {
-            const userID = document.getElementById('UserID').value.trim();
-            const tableID = document.getElementById('TableID').value.trim();
-            const date = document.getElementById('Date').value.trim();
-            const statusID = document.getElementById('StatusID').value.trim();
+            const userID = document.getElementById('user_id').value.trim();
+            const tableID = document.getElementById('table_id').value.trim();
+            const date = document.getElementById('date').value.trim();
+            const statusID = document.getElementById('status_id').value.trim();
 
             if (!userID || !tableID || !date || !statusID) {
                 alert("Vui lòng điền đầy đủ thông tin!");

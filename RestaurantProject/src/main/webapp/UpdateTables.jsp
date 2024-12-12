@@ -105,14 +105,18 @@
     <h1>Update Table</h1>
     <div class="form-container">
         <form action="TablesController?action=update" method="post">
-            <label for="ID">ID:</label>
-            <input type="text" id="ID" name="ID" readonly="readonly">
+            <label for="id">ID:</label>
+            <input type="text" id="id" name="id" readonly="readonly">
 
-            <label for="Number">Number:</label>
-            <input type="text" id="Number" name="Number" placeholder="Enter table number" required>
+            <label for="number">Number:</label>
+            <input type="text" id="number" name="number" placeholder="Enter table number" required>
 
-            <label for="StatusID">Status ID:</label>
-            <input type="text" id="StatusID" name="StatusID" placeholder="Enter status ID" required>
+            <label for="status_id">Status ID:</label>
+            <select id="status_id" name="status_id" required>
+			    <option value="" disabled selected>Chọn trạng thái</option>
+			    <option value="1">Còn Trống</option>
+			    <option value="2">Đã Được Đặt</option>
+			</select>
 
             <input type="submit" name="action" value="Update">
             <input type="reset" value="Reset">
@@ -130,14 +134,14 @@
         </thead>
         <tbody>
         <%
-            ArrayList<Tables> list = (ArrayList<Tables>) request.getAttribute("listTables");
+            ArrayList<Tables> list = (ArrayList<Tables>) request.getAttribute("tablesList");
             if (list != null) {
                 for (Tables table : list) {
         %>
             <tr>
                 <td><%= table.getId() %></td>
                 <td><%= table.getNumber() %></td>
-                <td><%= table.getStatus_id() %></td>
+                <td><%= table.getStatus_id()== 1 ? "Còn Trống" : "Đã hết" %></td>
                 <td>
                     <button onclick="handleUpdate('<%= table.getId() %>', '<%= table.getNumber() %>', '<%= table.getStatus_id() %>')">Update</button>
                 </td>
@@ -154,12 +158,12 @@
         %>
         </tbody>
     </table>
-    <a href="QLTables/Index.jsp">Back to Home</a>
+    <a href="Index_Tables.jsp">Back to Home</a>
     <script type="text/javascript">
         function handleUpdate(id, number, statusID) {
-            document.getElementById("ID").value = id;
-            document.getElementById("Number").value = number;
-            document.getElementById("StatusID").value = statusID;
+            document.getElementById("id").value = id;
+            document.getElementById("number").value = number;
+            document.getElementById("status_id").value = statusID;
         }
     </script>
 </body>

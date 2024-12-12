@@ -86,7 +86,7 @@
         </thead>
         <tbody>
         <% 
-            ArrayList<Booking> danhSachBooking = (ArrayList<Booking>) request.getAttribute("listBooking");
+            ArrayList<Booking> danhSachBooking = (ArrayList<Booking>) request.getAttribute("bookingsList");
             if (danhSachBooking == null || danhSachBooking.isEmpty()) { %>
                 <tr>
                     <td colspan="6" style="text-align: center;">Danh sách booking hiện tại trống</td>
@@ -98,7 +98,20 @@
                         <td><%= booking.getUser_id() %></td>
                         <td><%= booking.getTable_id() %></td>
                         <td><%= booking.getDate() %></td>
-                        <td><%= booking.getStatus_id() %></td>
+                        <td>
+						    <% 
+						        long statusId = booking.getStatus_id();
+						        String status = "";
+						        if (statusId == 5) {
+						            status = "Waiting";
+						        } else if (statusId == 6) {
+						            status = "Confirm";
+						        } else if (statusId == 7) {
+						            status = "Canceled";
+						        }
+						    %>
+						    <%= status %>
+						</td>
                         <td>
                             <form action="BookingController?action=delete" method="post" style="display: inline;">
                                 <input type="hidden" name="id" value="<%= booking.getId() %>">
@@ -110,6 +123,6 @@
             } %>
         </tbody>
     </table>
-    <a href="Booking/Index.jsp">Quay về Trang Chủ</a>
+    <a href="Index_booking.jsp">Quay về Trang Chủ</a>
 </body>
 </html>
